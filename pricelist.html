@@ -1,0 +1,1268 @@
+<!-- Musik Background -->
+<audio id="bg-music" loop>
+    <source src="spongebob.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Overlay "Klik untuk Mulai" (Wajib untuk mengaktifkan suara) -->
+<div id="start-overlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; display:flex; justify-content:center; align-items:center; cursor:pointer;" onclick="startExperience()">
+    <div style="color:white; font-size:24px; font-family:sans-serif; text-align:center;">
+        ✨ Klik di sini untuk memulai ✨
+    </div>
+</div>
+
+<script>
+    const music = document.getElementById('bg-music');
+    const overlay = document.getElementById('start-overlay');
+
+    function startExperience() {
+        music.volume = 0.75;
+        music.play().then(() => {
+            // Jika berhasil, hilangkan overlay
+            overlay.style.display = 'none';
+        }).catch(err => {
+            alert("Silakan klik sekali lagi untuk mengaktifkan suara.");
+        });
+    }
+
+    // Fungsi Mute tetap jalan
+    function toggleMute() {
+        music.muted = !music.muted;
+        document.getElementById('mute-trigger').innerText = music.muted ? "🔇 Audio Muted" : "🔊 Audio On";
+    }
+</script>
+
+<!-- Tombol Mute (Muncul setelah musik jalan) -->
+<div id="mute-trigger" onclick="toggleMute()" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; background: #fb8500; color: white; padding: 10px 15px; border-radius: 50px;">
+    🔊 Audio On
+</div>
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⋆. 𐙚˚࿔ Uti's Premium Store 𝜗𝜚˚⋆</title>
+    <!-- Mengimport font Fredoka dari Google Fonts agar nuansa kartun Bikini Bottom sangat terasa -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Gaya Dasar & Reset - Tema Bikini Bottom */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Fredoka', 'Comic Sans MS', -apple-system, sans-serif;
+        }
+
+        body {
+            /* Background laut Bikini Bottom dengan gradasi warna air laut */
+            background: linear-gradient(180deg, #3a86ff 0%, #00b4d8 50%, #0077b6 100%);
+            color: #03045e;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        /* Container Khusus HP */
+        .mobile-container {
+            width: 100%;
+            max-width: 480px;
+            /* Warna latar belakang pasir pantai hangat bawah laut */
+            background: #fefae0;
+            min-height: 100vh;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 40, 80, 0.3);
+            padding-bottom: 110px;
+            border-left: 4px solid #e9c46a;
+            border-right: 4px solid #e9c46a;
+        }
+
+        /* WELCOME / HERO SECTION */
+        .welcome-section {
+            text-align: center;
+            padding: 25px 15px;
+            /* Gradasi warna nanas SpongeBob / langit cerah */
+            background: linear-gradient(135deg, #ffdd00 0%, #ffb703 100%);
+            border-radius: 30px 15px 30px 15px; /* Sudut melengkung khas kartun */
+            margin-bottom: 25px;
+            border: 4px solid #fb8500;
+            box-shadow: 0 6px 0 #d46a00;
+        }
+
+        /* Styling Foto Store spbsb.jpeg */
+        .store-logo {
+            width: 85%;
+            max-width: 320px;
+            height: auto;
+            border-radius: 15px;
+            border: 3px solid #fb8500;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        .welcome-section h1 {
+            font-size: 22px;
+            color: #023047;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 0px #fff;
+        }
+
+        .welcome-section p {
+            font-size: 13.5px;
+            color: #023047;
+            line-height: 1.5;
+            font-weight: 600;
+        }
+
+        /* SEKSI DROPDOWN INTERAKTIF */
+        .interactive-section {
+            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .accordion-btn {
+            width: 100%;
+            /* Biru muda seperti air jernih */
+            background: #e0f2fe;
+            border: 3px solid #0284c7;
+            padding: 16px;
+            border-radius: 20px 10px;
+            text-align: left;
+            font-size: 15px;
+            font-weight: 700;
+            color: #0369a1;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 0 #0284c7;
+        }
+
+        .accordion-btn:hover, .accordion-btn.active {
+            border-color: #fb8500;
+            background: #fffbeb;
+            color: #d97706;
+            box-shadow: 0 4px 0 #fb8500;
+            transform: translateY(-2px);
+        }
+
+        .accordion-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 0px 0 transparent;
+        }
+
+        .accordion-btn .icon-main {
+            font-size: 20px;
+            margin-right: 8px;
+        }
+
+        .accordion-btn .arrow {
+            font-size: 14px;
+            transition: transform 0.3s ease;
+            color: #0284c7;
+        }
+
+        .accordion-btn.active .arrow {
+            transform: rotate(180deg);
+            color: #fb8500;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: #f0fdf4; /* default fallback melunak */
+            border-radius: 16px;
+            border: 0 dashed #0284c7;
+        }
+
+        .accordion-content.open {
+            max-height: 2000px;
+            border-width: 3px;
+            background: #fffbeb;
+            border-color: #0284c7;
+            padding: 16px;
+            margin-top: 4px;
+            margin-bottom: 8px;
+            overflow-y: auto;
+            box-shadow: inset 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .benefit-item {
+            margin-bottom: 20px;
+            background: #ffffff;
+            padding: 14px;
+            border-radius: 14px;
+            border: 2px solid #bae6fd;
+            box-shadow: 0 4px 0 #bae6fd;
+        }
+
+        .benefit-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .benefit-title {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #ffffff;
+            /* Merah kepiting tuan krab */
+            background: #e63946;
+            padding: 6px 12px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-bottom: 10px;
+            box-shadow: 2px 2px 0 #9b2226;
+        }
+        
+        /* Modifikasi warna-warni ubur-ubur & tanaman laut Bikini Bottom */
+        .benefit-title.green { background: #2a9d8f; box-shadow: 2px 2px 0 #1a655b; }
+        .benefit-title.purple { background: #a2d2ff; color: #03045e; box-shadow: 2px 2px 0 #bde0fe; }
+        .benefit-title.blue { background: #48cae4; color: #03045e; box-shadow: 2px 2px 0 #0077b6; }
+
+        .benefit-text {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #023047;
+            white-space: pre-line;
+        }
+
+        .format-box, .payment-box {
+            background: #ffffff;
+            border: 2px solid #e9c46a;
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 15px;
+            position: relative;
+            box-shadow: 0 4px 0 #e9c46a;
+        }
+
+        .format-box:last-child, .payment-box:last-child {
+            margin-bottom: 0;
+        }
+
+        .format-title, .payment-title {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #e76f51;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .payment-title { color: #023047; font-size: 14px; }
+
+        .format-text, .payment-number {
+            font-family: 'Fredoka', monospace;
+            font-size: 12.5px;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            color: #264653;
+            white-space: pre-wrap;
+            margin-bottom: 8px;
+            border: 2px dashed #cbd5e1;
+        }
+
+        .payment-number {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #1d3557;
+            text-align: center;
+            background: #ffddd2;
+            border: 2px solid #e76f51;
+        }
+
+        .btn-copy {
+            background: #ffb703;
+            color: #023047;
+            border: 2px solid #fb8500;
+            padding: 8px 14px;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 3px 0 #fb8500;
+            transition: all 0.1s ease;
+        }
+
+        .btn-copy:active { 
+            transform: translateY(3px);
+            box-shadow: 0 0px 0 transparent;
+        }
+
+        .btn-copy.btn-payment {
+            background: #0284c7;
+            color: white;
+            border-color: #0369a1;
+            width: 100%;
+            justify-content: center;
+            padding: 10px;
+            font-size: 13.5px;
+            box-shadow: 0 4px 0 #0369a1;
+        }
+        .btn-copy.btn-payment:active {
+            transform: translateY(4px);
+            box-shadow: 0 0px 0 transparent;
+        }
+
+        /* NAVIGASI & KATALOG UTAMA */
+        .catalog-heading {
+            text-align: center;
+            padding: 15px 0;
+            border-top: 3px dashed #e9c46a;
+            margin-top: 25px;
+        }
+
+        .catalog-heading h2 {
+            font-size: 16px;
+            color: #e76f51;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-shadow: 1px 1px 0 #fff;
+        }
+
+        /* Menu Pilihan Cepat (Grid Mini) - Tombol kotak ala gelembung / bunga */
+        .main-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .option-card {
+            background: #ffffff;
+            border: 2px solid #4ea8de;
+            padding: 12px;
+            border-radius: 16px;
+            text-decoration: none;
+            color: #0077b6;
+            font-weight: 700;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 0 #4ea8de;
+            transition: all 0.1s ease;
+        }
+
+        .option-card:active {
+            transform: translateY(4px);
+            box-shadow: 0 0px 0 transparent;
+            background: #0077b6;
+            color: white;
+            border-color: #0077b6;
+        }
+
+        /* Komponen Tabel Harga & Notes - Desain ala Krusty Krab Menu */
+        .category-block {
+            margin-top: 25px;
+            scroll-margin-top: 20px;
+        }
+
+        .category-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+            /* Coklat kayu papan tanda Krusty Krab */
+            background: #6c584c;
+            padding: 12px 14px;
+            border-radius: 16px 16px 0 0;
+            border: 3px solid #adc178;
+            border-bottom: none;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border: 3px solid #adc178;
+            border-top: none;
+            border-radius: 0 0 16px 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 0 #adc178;
+        }
+
+        .table-subheader {
+            /* Warna hijau lumut / ganggang laut lembut */
+            background: #dde5b6;
+            font-weight: 700;
+            color: #6c584c;
+            font-size: 13px;
+            padding: 10px 14px !important;
+            border-bottom: 2px solid #adc178;
+        }
+
+        td {
+            padding: 12px 14px;
+            font-size: 13px;
+            color: #283618;
+            border-bottom: 1px solid #f0f3e8;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) td {
+            background: #fdfbf7;
+        }
+
+        .price-col {
+            font-weight: 700;
+            color: #e76f51;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .product-notes {
+            background: #fff3b0;
+            border: 2px dashed #e36414;
+            padding: 12px;
+            border-radius: 12px;
+            margin-top: 16px;
+            font-size: 12px;
+            color: #5f0f40;
+            line-height: 1.5;
+            white-space: pre-line;
+            font-weight: 600;
+            box-shadow: 0 3px 0 #e36414;
+        }
+
+        /* Area Tombol Kontak di Bawah */
+        .floating-button-container {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 480px;
+            background: #fefae0;
+            padding: 15px 20px 20px;
+            box-shadow: 0 -6px 20px rgba(0, 40, 80, 0.15);
+            left: 50%;
+            transform: translateX(-50%);
+            border-top: 3px solid #e9c46a;
+            z-index: 999;
+        }
+
+        .btn-wa {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            padding: 14px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 700;
+            /* Warna hijau ubur-ubur / cerah berenergi */
+            background: #2a9d8f;
+            box-shadow: 0 5px 0 #1a655b;
+            transition: all 0.1s;
+            border: 2px solid #264653;
+        }
+
+        .btn-wa:active { 
+            transform: translateY(5px);
+            box-shadow: 0 0px 0 transparent;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-container">
+        
+        <!-- WELCOME SECTION -->
+        <div class="welcome-section">
+            <!-- Emoji nanas diganti menggunakan file foto spbsb.jpeg -->
+            <img src="spbsb.jpeg" alt="Uti Store Logo" class="store-logo">
+            <h1>⋆. 𐙚˚࿔ Uti's Premium Store 𝜗𝜚˚⋆</h1>
+            <p>Selamat datang! Silakan cek info aplikasi, format order, dan metode pembayaran di bawah ini ya.</p>
+        </div>
+
+        <!-- ================= SEKSI DROPDOWN (ACCORDION) ================= -->
+        <div class="interactive-section">
+            
+            <!-- TOMBOL 1: BENEFIT APPS -->
+            <button class="accordion-btn" onclick="toggleAccordion('benefit-content', this)">
+                <span><span class="icon-main">💡</span> Benefit & Penjelasan Apps</span>
+                <span class="arrow">▼</span>
+            </button>
+            
+            <!-- ISI 1: BENEFIT APPS -->
+            <div id="benefit-content" class="accordion-content">
+                <div class="benefit-item">
+                    <div class="benefit-title">⛔ NETFLIX BENEFIT ⛔</div>
+                    <div class="benefit-text"><b>Netflix 1p1u</b>
+— Nama profil dan pin boleh diganti
+— Tidak ada history watch milik orang lain
+— Profil milik pribadi tidak di sharing
+— Download sepuasnya
+— Tidak ada screenlimit kalau ada kemungkinan sangat kecil
+— Tidak ada kemungkinan incorrect
+
+<b>Netflix 1p2u</b>
+— dilarang keras mengganti nama profil dan pin
+— History watch gabung dengan orang lain
+— Ada limit download
+— Berkemungkinan besar screenlimit
+— Kemungkinan incorrect password sangat kecil
+
+<b>Netflix PRIVATE</b>
+— Nama profil, jumlah profil dan pin boleh diatur semau customer
+— Akun 100% milik pribadi
+— 5 profil 4 device
+— Download sepuasnya
+— Tidak ada screenlimit
+— Tidak ada kemungkinan incorrect password kecuali maintenance dari netflix
+
+<b>✏ Pertanyaan Umum (FAQ) Netflix:</b>
+Q: Bedanya 1 user sama 2 user apa kak?
+A: Kalo 2 user, itu 1 profile dipake berdua, kakak sama customer lain. kalo 1 user, 1 profile dipake sendirian.
+
+Q: Screenlimit itu kenapa?
+A: Bisa terjadi kalo kelima profile di netflix lagi nonton bersamaan, karena limit screen di netflix plan premium cuma ada 4 paling besar kemungkinan kena screen limit di netflix 1p2u ya karna 1 akun di pakai 10 custumer.
+
+Q: Cara atasi screen limit?
+A: Pertama, bisa ditunggu sebentar 15-40 yaa. Jika masih nggak bisa atau nggak mau nunggu, bisa di-download filmnya lalu ditonton offline.
+
+Q: Bisa dipakai di berapa device?
+A: Untuk 2 user hanya login 1 device saja yaa, yang melanggar ketahuan akun nya aku ambil. 1 user bisa login di 2 device, tapi tidak bisa bersamaan yaa.</div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-title green">⛔ VIU PRIVATE ⛔</div>
+                    <div class="benefit-text">— Hanya ada private
+— Bisa dipakai di 2-3 device. Smart TV terhitung 2
+— Fitur sesuai viu premium biasanya.
+
+Q: Ga login di banyak device kok bisa limit?
+A: Di awal-awal memang selalu gitu nanti lama lama normal kembali kok. Viu sekarang sudah anti backfree, tapi itu resikonya. solusinya bisa ditunggu sebentar, reinstall atau hapus cache apps viu nya.</div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-title purple">⛔ YOUTUBE & MUSIC ⛔</div>
+                    <div class="benefit-text"><b>YOUTUBE PREMIUM</b>
+— 1 bulan memakai akun customer sistem invite family plan
+— 4 bulan akun dari aku atau dari cust bisa asal email fresh yaa
+— Fitur sama seperti youtube premium biasanya.
+
+<b>APPLE MUSIC</b>
+— Kalo ios 13 butuh email apple id aja.
+— Kalo ios 14 butuh email sama pass apple id.
+
+<b>SPOTIFY PREMIUM</b>
+— Fitur: lirik, bisa skip, tanpa iklan, bisa download (sesuai fitur spotify premium biasanya).
+— Perbedaan Family & Individual: Inplan sistem nya perpanjang tiap bulan kalau order 2 bulan ppj ke 2 bulan nya sistem nya renewal berlaku kelipatan.
+— 1 email hanya bisa invite family plan 2 kali dalam setahun. Next kalau order pakai email baru.
+— Misal, akunnya udah family plan 2x dalam setahun, dan daftar family plan lagi dengan akun yang sama, maka folls tidak ada namun playlist aman.
+— Kalau akunnya sudah 2x family plan dalam setahun, dan ingin memperpanjang menggunakan individual plan, maka folls dan playlist tetap aman.
+— Usahakan spotify tidak nyambung dengan FB.</div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-title blue">⛔ APPS LAINNYA ⛔</div>
+                    <div class="benefit-text"><b>IQIYI</b>
+— Sharing hanya bisa digunakan di 1 device dan history watch tercampur
+— Private bisa digunakan di 2 device dan history watch milik sendiri
+
+<b>WE TV VIP</b>
+— Ready sharing dan private durasinya setahun garansi 6 bulan, tapi tenang aja aman dan anti backfree. Fitur sesuai wetv vip.
+
+<b>IFLIX</b>
+— Sharing dan private ready selalu fitur sama seperti iflix nya.
+
+<b>CANVA PRO MEMBER</b>
+— Sistemnya invite ke tim, butuh email aktif aja buat kirim invitation.
+— Perbedaan Member & Designer: Beda fiturnya kaa, kalo designer bisa upload font dari luar (misal dari web dafont), brandkit, color pallette dll, kalo member cuma unlock akses pro biasa.
+
+<b>HBO GO</b>
+— Ready private dan sharing, akun dari admin yaa. Fitur sama dan bisa akses semua film rilis di hbo.
+
+<b>VSCO X</b>
+— Bukan vsco fullpack, tidak bisa mengedit video yaa.
+
+<b>DISNEY+ HOTSTAR</b>
+— Sharing: hanya bisa dipakai di 1 device, dan history watch tercampur. Bisa login di TV.
+— Private: bisa dipakai di 2-3 device, dan history watch milik sendiri.
+— Kalau mau login disney cuma bisa 1 kali OTP ya kalau terlogout OTP kembali kena fee 4k / OTP. Dilarang keras login via web menghindari OTP berulang-ulang.
+— Yang order di atas 1 bulan no renew yaa bill langsung durasi.
+
+<b>VIDIO</b>
+— Dilarang utak-atik akun, bill & plan.
+— DILARANG GANTI EMAIL/PASS KALO GANTI SIAPAPUN ITU AKAN DI TARIK NO GARANSI.
+— Kalau lagi screen limit ditunggu saja, karena sharing.
+
+<b>MOLA TV SPORT SHARING</b>
+— Dilarang sering login-logout. Login MAX 1 DEVICE untuk menghindari screenlimit.
+— Full garansi (Garansi hangus jika melanggar SNK). Jika screenlimit harap ditunggu karena ini akun sharing!</div>
+                </div>
+            </div>
+
+            <!-- TOMBOL 2: FORMAT ORDER & GARANSI -->
+            <button class="accordion-btn" onclick="toggleAccordion('format-content', this)">
+                <span><span class="icon-main">📋</span> Format Order & Claim Garansi</span>
+                <span class="arrow">▼</span>
+            </button>
+            
+            <!-- ISI 2: FORMAT ORDER & GARANSI -->
+            <div id="format-content" class="accordion-content">
+                <div class="format-box">
+                    <div class="format-title">🍂 Form Orderan Umum</div>
+                    <div class="format-text" id="form-umum">Form Orderan
+— nama apps : 
+— durasi : 
+— tgl order : 
+Link: 🖇happy shoping🖇</div>
+                    <button class="btn-copy" onclick="copyText('form-umum', 'Format Berhasil Disalin!')">📋 Salin Format</button>
+                </div>
+
+                <div class="format-box">
+                    <div class="format-title">🍂 Form Renew Netflix (Ke-1 & Ke-2)</div>
+                    <div class="format-text" id="form-renew-nf">Form Renew Netflix
+— nama apps : 
+— email renewal : 
+— Pass Renew : 
+— tgl order : 
+— tgl renewal : 
+— renewal ke : </div>
+                    <button class="btn-copy" onclick="copyText('form-renew-nf', 'Format Berhasil Disalin!')">📋 Salin Format</button>
+                </div>
+
+                <div class="format-box">
+                    <div class="format-title">🍂 Form Claim Garansi Umum</div>
+                    <div class="format-text" id="form-garansi">Form Claim Garansi
+— Apps : 
+— Email : 
+— pass (jika ada) : 
+— Durasi Apps : 
+— Tanggal Order : 
+— Tanggal Bermasalah : 
+— permasalahan : 
+(❗ Wajib sertakan bukti foto/Screenshot)</div>
+                    <button class="btn-copy" onclick="copyText('form-garansi', 'Format Berhasil Disalin!')">📋 Salin Format</button>
+                </div>
+
+                <div class="format-box">
+                    <div class="format-title">🍂 Form Apple Music</div>
+                    <div class="format-text" id="form-apple">FORM APPLE MUSIC
+— Apple id : 
+— Nomor imess : 
+— Andro / ios : </div>
+                    <button class="btn-copy" onclick="copyText('form-apple', 'Format Berhasil Disalin!')">📋 Salin Format</button>
+                </div>
+
+                <div class="format-box">
+                    <div class="format-title">🍂 Form Canva</div>
+                    <div class="format-text" id="form-canva">FORM CANVA
+— Tgl Order : 
+— email Canva : 
+— Durasi : 
+— Member / designer : </div>
+                    <button class="btn-copy" onclick="copyText('form-canva', 'Format Berhasil Disalin!')">📋 Salin Format</button>
+                </div>
+
+                <div class="format-box">
+                    <div class="format-title">🍂 Form Spotify & Renew Spotify</div>
+                    <div class="format-text" id="form-spotify">FORM SPOTIFY
+— Email : 
+— Pass : 
+— Durasi : 
+— Tgl Order : 
+— Inplan / Famplan : 
+— Ppj / Aktivasi : 
+(❌ Pastikan tidak terhubung ke Facebook)</div>
+                    <button class="btn-copy" onclick="copyText('form-spotify', 'Format Berhasil Disalin!')">📋 Salin Format</button>
+                </div>
+            </div>
+
+            <!-- TOMBOL 3: METODE PEMBAYARAN -->
+            <button class="accordion-btn" onclick="toggleAccordion('payment-content', this)">
+                <span><span class="icon-main">💳</span> Metode Pembayaran (Payment)</span>
+                <span class="arrow">▼</span>
+            </button>
+
+            <!-- ISI 3: METODE PEMBAYARAN -->
+            <div id="payment-content" class="accordion-content">
+                <div class="payment-box">
+                    <div class="payment-title">🧡 Shopeepay / 💙 Seabank</div>
+                    <div class="payment-number" id="num-pay">089502219144</div>
+                    <button class="btn-copy btn-payment" onclick="copyText('num-pay', 'Nomor Shopeepay/Seabank berhasil disalin!')">📋 Salin Nomor Rekening</button>
+                </div>
+                
+                <div class="payment-box" style="opacity: 0.7; background: #f1f5f9;">
+                    <div class="payment-title" style="color: #64748b;">📸 QRIS (All Payment)</div>
+                    <div style="font-size: 12px; color: #64748b; text-align: center; padding: 10px; font-style: italic;">
+                        🔄 Belum tersedia / Menyusul (Coming Soon)
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ================= KATALOG PRICELIST UTAMA ================= -->
+        <div class="catalog-heading">
+            <h2>Katalog Daftar Harga</h2>
+        </div>
+
+     <!-- Menu Pilihan Cepat -->
+<div class="main-options">
+    <!-- Kategori Utama -->
+    <a href="#netflix-cat" class="option-card">🍿 Netflix Premium</a>
+    <a href="#wetv-cat" class="option-card">🟢 WeTV VIP</a>
+    <a href="#disney-cat" class="option-card">🏰 Disney+ Hotstar</a>
+    <a href="#vidio-cat" class="option-card">🔵 Vidio Platinum</a>
+    <a href="#streaming-cat" class="option-card">📱 Apps Streaming</a>
+    <a href="#gaga-cat" class="option-card">🌈 GagaOOLALA</a>
+    <a href="#bein-cat" class="option-card">⚽ BEIN Sport</a>
+    <a href="#catch-cat" class="option-card">🎬 CatchPlay+</a>
+    <a href="#klikfilm-cat" class="option-card">🎞 Klik Film</a>
+    <a href="#mubi-mola-cat" class="option-card">📺 Mubi & Mola</a>
+    <a href="#viki-cr-cat" class="option-card">🌏 Viki, CR, Kocowa</a>
+    <a href="#short-cat" class="option-card">📱 Short Drama</a>
+    <a href="#education-cat" class="option-card">🎓 Edu & AI Tools</a>
+    
+    <!-- Kategori Grup (all-cat) -->
+    <a href="#all-cat" class="option-card">🔴 Iflix VIP</a>
+    <a href="#all-cat" class="option-card">❤️ YouTube Prem</a>
+    <a href="#all-cat" class="option-card">🟢 Spotify Prem</a>
+    <a href="#all-cat" class="option-card">📚 Scribd</a>
+    <a href="#all-cat" class="option-card">🎨 Canva Pro</a>
+    <a href="#all-cat" class="option-card">🔮 Viu Premium</a>
+    
+    <!-- Kategori Grup (others-cat) -->
+    <a href="#others-cat" class="option-card">📦 Prime Video</a>
+    <a href="#others-cat" class="option-card">✈️ Telegram & AI</a>
+    <a href="#others-cat" class="option-card">🍁 Bstation & Drakor</a>
+    <a href="#others-cat" class="option-card">📖 Wattpad & Robux</a>
+    <a href="#others-cat" class="option-card">⚙️ Office & Cloud</a>
+    
+    <!-- Kategori Grup (music-edit-cat) -->
+    <a href="#music-edit-cat" class="option-card">🎵 Music Apps</a>
+    <a href="#music-edit-cat" class="option-card">🎞 Editing Apps</a>
+    <a href="#music-edit-cat" class="option-card">🔒 VPN & HBO</a>
+    <a href="#music-edit-cat" class="option-card">✨ Lightroom Preset</a>
+</div>
+
+        <!-- 1. NETFLIX -->
+        <div class="category-block" id="netflix-cat">
+            <div class="category-title">🍿 NETFLIX PREMIUM</div>
+            <table>
+                <tr><td colspan="2" class="table-subheader">NETFLIX HARIAN 1 USER</td></tr>
+                <tr><td>1 hari</td><td class="price-col">Rp 5.000</td></tr>
+                <tr><td>2 hari</td><td class="price-col">Rp 6.500</td></tr>
+                <tr><td>3 hari</td><td class="price-col">Rp 8.000</td></tr>
+                <tr><td>4 hari</td><td class="price-col">Rp 9.000</td></tr>
+                <tr><td>5 hari</td><td class="price-col">Rp 11.000</td></tr>
+                <tr><td>6 hari</td><td class="price-col">Rp 12.000</td></tr>
+                <tr><td>7 hari</td><td class="price-col">Rp 13.000</td></tr>
+                <tr><td>14 hari</td><td class="price-col">Rp 21.000</td></tr>
+                
+                <tr><td colspan="2" class="table-subheader">NETFLIX HARIAN 2 USER</td></tr>
+                <tr><td>1 hari</td><td class="price-col">Rp 4.500</td></tr>
+                <tr><td>2 hari</td><td class="price-col">Rp 6.000</td></tr>
+                <tr><td>3 hari</td><td class="price-col">Rp 7.000</td></tr>
+                <tr><td>4 hari</td><td class="price-col">Rp 8.000</td></tr>
+                <tr><td>5 hari</td><td class="price-col">Rp 10.000</td></tr>
+                <tr><td>6 hari</td><td class="price-col">Rp 11.000</td></tr>
+                <tr><td>7 hari</td><td class="price-col">Rp 12.000</td></tr>
+                <tr><td>14 hari</td><td class="price-col">Rp 19.000</td></tr>
+
+                <tr><td colspan="2" class="table-subheader">NETFLIX 1 BULAN</td></tr>
+                <tr><td>2 USER</td><td class="price-col">Rp 17.000</td></tr>
+                <tr><td>1 USER</td><td class="price-col">Rp 29.000</td></tr>
+
+                <tr><td colspan="2" class="table-subheader">NETFLIX 2 BULAN RENEWAL</td></tr>
+                <tr><td>2 USER 2 BULAN</td><td class="price-col">Rp 30.000</td></tr>
+                <tr><td>1 USER 2 BULAN</td><td class="price-col">Rp 56.000</td></tr>
+
+                <tr><td colspan="2" class="table-subheader">NETFLIX 3 BULAN RENEWAL</td></tr>
+                <tr><td>2 user 3 bulan</td><td class="price-col">Rp 45.000</td></tr>
+                <tr><td>1 user 3 bulan</td><td class="price-col">Rp 83.000</td></tr>
+
+                <tr><td colspan="2" class="table-subheader">NETFLIX SEMI PRIVATE</td></tr>
+                <tr><td>1 Bulan 1 USER</td><td class="price-col">Rp 57.000</td></tr>
+                <tr><td>1 Bulan 2 USER</td><td class="price-col">Rp 30.000</td></tr>
+                <tr><td>2 bulan 1 USER</td><td class="price-col">Rp 108.000</td></tr>
+                <tr><td>2 bulan 2 USER</td><td class="price-col">Rp 57.000</td></tr>
+
+                <tr><td colspan="2" class="table-subheader">NETFLIX PRIVATE & LAINNYA</td></tr>
+                <tr><td>NETFLIX PRIVATE 7 HARI</td><td class="price-col">Rp 53.000</td></tr>
+                <tr><td>NETFLIX PRIVATE BILL GC 1 BULAN</td><td class="price-col">Rp 178.000</td></tr>
+                <tr><td>NETFLIX PRIVATE BILL RVISA 1 BULAN</td><td class="price-col">Rp 158.000</td></tr>
+                <tr><td>NETFLIX PRIVATE BILL PKR</td><td class="price-col">Rp 153.000</td></tr>
+            </table>
+            <div class="product-notes">
+                Notes :
+                1. full garansi ALL DURASI
+                2. garansi 25 - 30 hari terhitung 1 bulan
+                3. sharing hanya bisa login di 1 device saja
+                4. UHD4K plan Premium Bisa semua perangkat (Smart TV, HP, PC)
+                5. Private mendapat 5 profile dan bisa login di 4 - 10 device
+                6. cust dan ress wajib baca snk yang tertera di snk netflix
+                7. jika dipertengahan durasi terkena vpn maka tidak ada reffund atau ganti akun, tetapi akan direkomendasikan vpn yang work kita tidak tahu gimana kedepan nya ( BLACK MARKET )
+                8. Semi private bisa login 2 device
+                9. jika mau ppj bisa lapor admin max h-2
+                10. Domain maker
+                11. kerusakan account private oleh buyer denda 400 /AKUN
+            </div>
+        </div>
+
+        <!-- 2. WETV VIP -->
+        <div class="category-block" id="wetv-cat">
+            <div class="category-title">🟢 WETV VIP</div>
+            <table>
+                <tr><td>1 Bulan Sharing 6 user</td><td class="price-col">Rp 11.000</td></tr>
+                <tr><td>2 Bulan sharing 6 user</td><td class="price-col">Rp 13.000</td></tr>
+                <tr><td>3 Bulan sharing 6 user</td><td class="price-col">Rp 18.000</td></tr>
+                <tr><td>4 Bulan sharing 6 user</td><td class="price-col">Rp 26.000</td></tr>
+                <tr><td>5 Bulan sharing 6 user</td><td class="price-col">Rp 30.000</td></tr>
+                <tr><td>6 Bulan sharing 6 user</td><td class="price-col">Rp 41.000</td></tr>
+                <tr><td>1 Tahun Sharing (Close sementara)</td><td class="price-col">Rp 12.000</td></tr>
+                <tr><td>1 Bulan Private</td><td class="price-col">Rp 33.000</td></tr>
+                <tr><td>2 Bulan Private</td><td class="price-col">Rp 61.000</td></tr>
+                <tr><td>3 Bulan Private</td><td class="price-col">Rp 78.000</td></tr>
+                <tr><td>1 Tahun Private</td><td class="price-col">Rp 233.000</td></tr>
+            </table>
+            <div class="product-notes">
+                Note :
+                1. Untuk setahun garansi 6 bulan
+                2. Sharing login via web official wetv indonesia
+                3. Private login max 4-5 device
+                4. Sharing tidak boleh login di TV, untuk login di TV membeli private
+                5. Durasi lebih 1 bulan sistem renewal tiap bulan
+            </div>
+        </div>
+
+        <!-- 3. DISNEY + HOTSTAR -->
+        <div class="category-block" id="disney-cat">
+            <div class="category-title">🏰 DISNEY+ HOTSTAR</div>
+            <table>
+                <tr><td colspan="2" class="table-subheader">1 BULAN PLAN PREMIUM</td></tr>
+                <tr><td>Sharing 6 User</td><td class="price-col">Rp 27.000</td></tr>
+                <tr><td>Sharing 5 User</td><td class="price-col">Rp 29.000</td></tr>
+                
+                <tr><td colspan="2" class="table-subheader">2 BULAN</td></tr>
+                <tr><td>Sharing 6 User Renewal</td><td class="price-col">Rp 51.000</td></tr>
+                <tr><td>Sharing 5 User Renewal</td><td class="price-col">Rp 54.000</td></tr>
+
+                <tr><td colspan="2" class="table-subheader">3 BULAN</td></tr>
+                <tr><td>Sharing 6 User Renewal</td><td class="price-col">Rp 74.000</td></tr>
+                <tr><td>Sharing 5 User Renewal</td><td class="price-col">Rp 83.000</td></tr>
+
+                <tr><td colspan="2" class="table-subheader">PRIVATE PLAN</td></tr>
+                <tr><td>1 Bulan Private Plan premium</td><td class="price-col">Rp 148.000</td></tr>
+                <tr><td>1 Bulan Private plan Basic</td><td class="price-col">Rp 88.000</td></tr>
+                <tr><td>1 Tahun Private plan premium</td><td class="price-col">Rp 653.000</td></tr>
+                <tr><td>1 Tahun Private plan basic</td><td class="price-col">Rp 383.000</td></tr>
+            </table>
+            <div class="product-notes">
+                Note :
+                1. Full garansi
+                2. Sharing hanya bisa di 1 device
+                3. Private max. 3 device
+                4. durasi lebih dari 1 bulan sistem renewal setiap bulan
+                5. Fresh Bill
+                6. Plan premium limit 3 layar basic di 1 layar
+                7. Sharing all durasi plan premium
+            </div>
+        </div>
+
+        <!-- 4. VIDIO -->
+        <div class="category-block" id="vidio-cat">
+            <div class="category-title">🔵 VIDIO PREMIUM</div>
+            <table>
+                <tr><td colspan="2" class="table-subheader">VIDIO ALL DEVICE</td></tr>
+                <tr><td>1 Bulan Private Platinum all device</td><td class="price-col">Rp 48.000</td></tr>
+                <tr><td>1 bulan sharing all device 2u</td><td class="price-col">Rp 26.000</td></tr>
+                <tr><td>1 Bulan Sharing Platinum mobile 2u</td><td class="price-col">Rp 21.000</td></tr>
+
+                <tr><td colspan="2" class="table-subheader">VIDIO PLATINUM TV ONLY</td></tr>
+                <tr><td>1 bulan private</td><td class="price-col">Rp 23.000</td></tr>
+
+                <tr><td colspan="2" class="table-subheader">VIDIO MOBILE ONLY</td></tr>
+                <tr><td>1 bulan private platinum</td><td class="price-col">Rp 36.000</td></tr>
+
+                <tr><td colspan="2" class="table-subheader">VIDIO ULTIMATE</td></tr>
+                <tr><td>1 bulan private mobile</td><td class="price-col">Rp 133.000</td></tr>
+                <tr><td>1 bulan private all device</td><td class="price-col">Rp 178.000</td></tr>
+            </table>
+            <div class="product-notes">
+                Notes :
+                1. Private acc dari store
+                2. Limit = bisa kena batas nonton (sharing 1 org)
+                3. plan ultimate bisa liga inggris (EPL)
+                4. dilarang merubah email & password
+                5. jika di suatu saat vidio hanya dapat akses melalui tv maka tidak ada opsi Refund, cust harus bersedia login di tv
+                6. Plan hanya bisa login sesuai plan order
+                7. Jika kena di disable atau ke NON AKTIF tidak masuk garansi jika beli akun sharing ya itu resiko masing masing karna vidio rawan jika banyak device masuk atau bolak balik relogin , no DRAMA lebih saran beli ke private
+            </div>
+        </div>
+
+        <!-- 5. APPS STREAMING -->
+        <div class="category-block" id="streaming-cat">
+            <div class="category-title">📱 APPS STREAMING MULTIPLAN</div>
+            <table>
+                <tr><td colspan="2" class="table-subheader">IQIYI</td></tr>
+                <tr><td>1 bulan sharing std</td><td class="price-col">Rp 9.000</td></tr>
+                <tr><td>1 bulan sharing premium</td><td class="price-col">Rp 12.000</td></tr>
+                <tr><td>3 bulan Sharing std</td><td class="price-col">Rp 10.000</td></tr>
+                <tr><td>3 bulan sharing premium</td><td class="price-col">Rp 13.000</td></tr>
+                <tr><td>6 bulan sharing std</td><td class="price-col">Rp 11.000</td></tr>
+                <tr><td>6 bulan sharing premium</td><td class="price-col">Rp 14.000</td></tr>
+                <tr><td>1 tahun Sharing std</td><td class="price-col">Rp 12.000</td></tr>
+                <tr><td>1 tahun sharing premium</td><td class="price-col">Rp 16.000</td></tr>
+                <tr><td>1 Bulan private plan (standart)</td><td class="price-col">Rp 31.000</td></tr>
+                <tr><td>1 Bulan private (Premium)</td><td class="price-col">Rp 43.000</td></tr>
+            </table>
+            <div class="product-notes">
+                Note :
+                1. Full garansi
+                2. Sharing max login 1 device
+                3. Private max login 4 device
+                4. Untuk 1 bulan plan standar
+                5. Untuk 1 tahun plan premium
+            </div>
+	<!-- 6. APPS STREAMING -->
+        <div class="category-block" id="streaming-cat">
+            <div class="category-title">📱 APPS STREAMING MULTIPLAN</div>
+            <table>
+                <tr><td colspan="2" class="table-subheader">Mango TV</td></tr>
+                <tr><td>1 bulan private VIP</td><td class="price-col">Rp 42.000</td></tr>
+                <tr><td>3 Bulan privateVIP</td><td class="price-col">Rp 53.000</td></tr>
+		<tr><td>12 Bulan private VIP</td><td class="price-col">Rp 175.000</td></tr>
+            	<tr><td>1 bulan sharing 3 user VIP</td><td class="price-col">Rp 15.000</td></tr>
+		<tr><td>1 bulan sharing 3 user SVIP</td><td class="price-col">Rp 21.000</td></tr>
+		<tr><td>1 bulan private SVIP</td><td class="price-col">Rp 38.000</td></tr>
+		<tr><td>3 Bulan private SVIP</td><td class="price-col">Rp 80.000</td></tr>
+		<tr><td>12 Bulan private SVI</td><td class="price-col">Rp 253.000</td></tr>
+            </div>
+<!-- KATEGORI TAMBAHAN -->
+
+<!-- 6. GAGAOOLALA -->
+<div class="category-block" id="gaga-cat">
+    <div class="category-title">🌈 GAGAOOLALA</div>
+    <table>
+        <tr><td>Sharing 1 bulan</td><td class="price-col">Rp 16.000</td></tr>
+        <tr><td>Private 1 bulan</td><td class="price-col">Rp 115.000</td></tr>
+    </table>
+</div>
+
+<!-- 7. BEIN SPORT -->
+<div class="category-block" id="bein-cat">
+    <div class="category-title">⚽ BEIN SPORT CONNECT</div>
+    <table>
+        <tr><td>1 bulan private</td><td class="price-col">Rp 65.000</td></tr>
+        <tr><td>1 bulan sharing</td><td class="price-col">Rp 45.000</td></tr>
+    </table>
+</div>
+
+<!-- 8. CATCHPLAY -->
+<div class="category-block" id="catch-cat">
+    <div class="category-title">🎬 CATCHPLAY+</div>
+    <table>
+        <tr><td>1 bulan private</td><td class="price-col">Rp 45.000</td></tr>
+        <tr><td>1 bulan sharing</td><td class="price-col">Rp 13.000</td></tr>
+        <tr><td>3 bulan sharing</td><td class="price-col">Rp 17.000</td></tr>
+        <tr><td>1 tahun sharing</td><td class="price-col">Rp 23.000</td></tr>
+    </table>
+</div>
+
+<!-- 9. KLIK FILM -->
+<div class="category-block" id="klikfilm-cat">
+    <div class="category-title">🎞 KLIK FILM</div>
+    <table>
+        <tr><td>1 bulan private</td><td class="price-col">Rp 35.000</td></tr>
+        <tr><td>Voucher 1 bulan</td><td class="price-col">Rp 32.000</td></tr>
+    </table>
+</div>
+
+<!-- 10. MUBI & MOLA -->
+<div class="category-block" id="mubi-mola-cat">
+    <div class="category-title">📺 MUBI & MOLA TV</div>
+    <table>
+        <tr><td colspan="2" class="table-subheader">MUBI</td></tr>
+        <tr><td>1 bulan private</td><td class="price-col">Rp 58.000</td></tr>
+        <tr><td>1 bulan sharing</td><td class="price-col">Rp 39.000</td></tr>
+        <tr><td colspan="2" class="table-subheader">MOLA TV</td></tr>
+        <tr><td>1 bulan private Sport+Ent</td><td class="price-col">Rp 95.000</td></tr>
+        <tr><td>1 bulan sharing Sport+Ent</td><td class="price-col">Rp 58.000</td></tr>
+    </table>
+</div>
+
+<!-- 11. VIKI & CRUNCHY & KOCOWA -->
+<div class="category-block" id="viki-cr-cat">
+    <div class="category-title">🌏 VIKI, CRUNCHYROLL & KOCOWA</div>
+    <table>
+        <tr><td colspan="2" class="table-subheader">VIKI RAKUTEN</td></tr>
+        <tr><td>1 bulan sharing std</td><td class="price-col">Rp 32.000</td></tr>
+        <tr><td>1 bulan private std</td><td class="price-col">Rp 65.000</td></tr>
+        <tr><td>1 bulan sharing plan plus</td><td class="price-col">Rp 45.000</td></tr>
+        <tr><td>1 bulan private plan plus</td><td class="price-col">Rp 72.000</td></tr>
+        <tr><td colspan="2" class="table-subheader">CRUNCHYROLL</td></tr>
+        <tr><td>1 bulan sharing 2u</td><td class="price-col">Rp 19.000</td></tr>
+        <tr><td>1 tahun sharing</td><td class="price-col">Rp 23.000</td></tr>
+        <tr><td>1 bulan private</td><td class="price-col">Rp 39.000</td></tr>
+        <tr><td colspan="2" class="table-subheader">KOCOWA</td></tr>
+        <tr><td>1 bulan sharing</td><td class="price-col">Rp 26.000</td></tr>
+        <tr><td>1 bulan private</td><td class="price-col">Rp 39.000</td></tr>
+    </table>
+</div>
+
+<!-- 12. SHORT DRAMA APPS -->
+<div class="category-block" id="short-cat">
+    <div class="category-title">📱 SHORT DRAMA APPS</div>
+    <table class="product-table">
+        <tr><td>Maxstream 1 bln private</td><td class="price-col">Rp 45.000</td></tr>
+        <tr><td>Sushiroll 1 bln private</td><td class="price-col">Rp 39.000</td></tr>
+        <tr><td colspan="2" class="table-subheader">DRAMA BOX</td></tr>
+        <tr><td>1/3/6/12 bulan sharing</td><td class="price-col">Rp 32k / 45k / 65k / 90k</td></tr>
+        <tr><td colspan="2" class="table-subheader">SHORT MAX</td></tr>
+        <tr><td>1/3/6/12 bulan sharing</td><td class="price-col">Rp 32k / 58k / 95k / 175k</td></tr>
+        <tr><td colspan="2" class="table-subheader">REELS SHORT</td></tr>
+        <tr><td>1/3 bulan sharing</td><td class="price-col">Rp 39k / 85k</td></tr>
+        <tr><td colspan="2" class="table-subheader">SHORTS GO</td></tr>
+        <tr><td>1/3/6/12 bulan sharing</td><td class="price-col">Rp 26k / 32k / 58k / 95k</td></tr>
+        <tr><td colspan="2" class="table-subheader">SEREAL & SHORTS SHORT</td></tr>
+        <tr><td>Sereal 1/3/6/12 bln share</td><td class="price-col">Rp 19k / 32k / 58k / 95k</td></tr>
+        <tr><td>Shorts Short 1/3 bln share</td><td class="price-col">Rp 39k / 75k</td></tr>
+        <tr><td colspan="2" class="table-subheader">WIBUKU</td></tr>
+        <tr><td>1/3/6 bulan share</td><td class="price-col">Rp 19k / 39k / 65k</td></tr>
+    </table>
+</div>
+
+<!-- 13. EDUCATION & AI -->
+<div class="category-block" id="education-cat">
+    <div class="category-title">🎓 EDUCATION & AI TOOLS</div>
+
+    <table class="product-table">
+        <tr><td colspan="2" class="table-subheader">TURNITIN STUDENT</td></tr>
+        <tr><td>1 hari 150x cek</td><td class="price-col">Rp 26.000</td></tr>
+        <tr><td>7 Hari 300x cek</td><td class="price-col">Rp 36.000</td></tr>
+        <tr><td>1 bulan 300x cek</td><td class="price-col">Rp 65.000</td></tr>
+        <tr><td>1 bulan 900x cek</td><td class="price-col">Rp 58.000</td></tr>
+        <tr><td>2 bulan 300x cek</td><td class="price-col">Rp 72.000</td></tr>
+        <tr><td>2 bulan 900x cek</td><td class="price-col">Rp 100.000</td></tr>
+        <tr><td>3 bulan 300x cek</td><td class="price-col">Rp 110.000</td></tr>
+        <tr><td>3 bulan 900x cek</td><td class="price-col">Rp 155.000</td></tr>
+        <tr><td>5 bulan 900x cek</td><td class="price-col">Rp 200.000</td></tr>
+
+        <tr><td colspan="2" class="table-subheader">TURNITIN AI</td></tr>
+        <tr><td>1 bln 300x cek Ai</td><td class="price-col">Rp 155.000</td></tr>
+        <tr><td>1 bln 500x cek Ai</td><td class="price-col">Rp 225.000</td></tr>
+        <tr><td>1 bln 1000x cek Ai</td><td class="price-col">Rp 300.000</td></tr>
+        <tr><td>1 bln 3000x cek Ai</td><td class="price-col">Rp 520.000</td></tr>
+    </table>
+
+    <table class="product-table">
+        <tr><td colspan="2" class="table-subheader">ZOOM & MEET</td></tr>
+        <tr><td>Sewa Zoom 100p (1 jam)</td><td class="price-col">Rp 10.000</td></tr>
+        <tr><td>Sewa Zoom 100p (1 hari)</td><td class="price-col">Rp 23.000</td></tr>
+        <tr><td>Sewa Zoom 300p (1 hari)</td><td class="price-col">Rp 58.000</td></tr>
+        <tr><td>Sewa Zoom 500p (1 hari)</td><td class="price-col">Rp 90.000</td></tr>
+        <tr><td>Head Zoom 100p (30 hari)</td><td class="price-col">Rp 85.000</td></tr>
+        <tr><td>Google Meet 1 bulan</td><td class="price-col">Rp 58.000</td></tr>
+    </table>
+
+    <table class="product-table">
+        <tr><td colspan="2" class="table-subheader">AI TOOLS (CHATGPT, QUILLBOT, DLL)</td></tr>
+        <tr><td>ChatGPT 1 bln private</td><td class="price-col">Rp 195.000</td></tr>
+        <tr><td>ChatGPT 1 bln sharing (3u)</td><td class="price-col">Rp 39.000</td></tr>
+        <tr><td>Quillbot 1 bln private</td><td class="price-col">Rp 98.000</td></tr>
+        <tr><td>Quillbot 1 bln sharing (3u)</td><td class="price-col">Rp 30.000</td></tr>
+        <tr><td>DeePL 1 bln private</td><td class="price-col">Rp 45.000</td></tr>
+        <tr><td>Coursera 1 bln private</td><td class="price-col">Rp 49.000</td></tr>
+    </table>
+
+    <table class="product-table">
+        <tr><td colspan="2" class="table-subheader">APPS PRODUKTIVITAS & BELAJAR</td></tr>
+        <tr><td>Goodnotes 6 Lifetime</td><td class="price-col">Rp 23.000</td></tr>
+        <tr><td>Notability 1 thn</td><td class="price-col">Rp 23.000</td></tr>
+        <tr><td>Quizlet Plus 1 bln sharing</td><td class="price-col">Rp 13.000</td></tr>
+        <tr><td>Camscanner Pro 1 thn share</td><td class="price-col">Rp 45.000</td></tr>
+        <tr><td>Skillshare 1/2/3 bln priv</td><td class="price-col">Rp 13k/26k/39k</td></tr>
+        <tr><td>Duolingo Super 1 bln priv</td><td class="price-col">Rp 13.000</td></tr>
+    </table>
+
+    <div class="product-notes">
+        Notes :<br>
+        1. Full Garansi jika akun terkick dari kelas<br>
+        2. Refill hanya berlaku durasi >6 bulan (1x refill)<br>
+        3. Bisa Perpanjang<br>
+        4. Akun Private bisa dari kamu & dari aku<br>
+        5. Free channel tutorial<br>
+        6. Akun 100% No Repository | Sewa via link | Head dikasih akun
+    </div>
+<!-- KATEGORI: IFLIX, YOUTUBE, SPOTIFY, SCRIBD, CANVA, VIU -->
+<div class="category-block" id="all-cat">
+    <!-- IFLIX -->
+    <div class="category-title">🔴 IFLIX VIP</div>
+    <table class="product-table">
+        <tr><td>1 Bulan sharing</td><td class="price-col">Rp 8.000</td></tr>
+        <tr><td>3 Bulan Sharing</td><td class="price-col">Rp 11.000</td></tr>
+        <tr><td>1 tahun Sharing</td><td class="price-col">Rp 15.000</td></tr>
+        <tr><td>1 bulan private</td><td class="price-col">Rp 40.000</td></tr>
+        <tr><td>3 bulan private</td><td class="price-col">Rp 95.000</td></tr>
+        <tr><td>1 tahun private</td><td class="price-col">Rp 290.000</td></tr>
+    </table>
+
+    <!-- YOUTUBE -->
+    <div class="category-title">❤️ YOUTUBE PREMIUM</div>
+    <table class="product-table">
+        <tr><td colspan="2" class="table-subheader">INPLAN</td></tr>
+        <tr><td>1 bln / 2 bln mix / 3 bln mix</td><td class="price-col">Rp 9k / 13k / 26k</td></tr>
+        <tr><td>3 bln full / 3 bln full (no gar)</td><td class="price-col">Rp 42k / 32k</td></tr>
+        <tr><td>4 bln / 5 bln / 6 bln mix</td><td class="price-col">Rp 45k / 47k / 48k</td></tr>
+        <tr><td colspan="2" class="table-subheader">FAMPLAN & ADMIN</td></tr>
+        <tr><td>1 bln / 2 bln / 3 bln / 4 bln / 5 bln / 6 bln</td><td class="price-col">Rp 7k / 11k / 15k / 17k / 20k / 23k</td></tr>
+        <tr><td>Admin YouTube 1 bulan</td><td class="price-col">Rp 20.000</td></tr>
+    </table>
+
+    <!-- SPOTIFY -->
+    <div class="category-title">🟢 SPOTIFY PREMIUM</div>
+    <table class="product-table">
+        <tr><td>1 bln / 2 bln / 3 bln / 4 bln</td><td class="price-col">Rp 20k / 28k / 32k / 38k</td></tr>
+        <tr><td>1 bln fullgar / 3 bln fullgar</td><td class="price-col">Rp 32k / 58k</td></tr>
+        <tr><td>Gmail Fresh</td><td class="price-col">Rp 4.000</td></tr>
+    </table>
+
+    <!-- SCRIBD -->
+    <div class="category-title">📚 SCRIBD</div>
+    <table class="product-table">
+        <tr><td>1 bln Private / Sharing</td><td class="price-col">Rp 18k / 9k</td></tr>
+        <tr><td>2 bln Private / Sharing</td><td class="price-col">Rp 27k / 16k</td></tr>
+    </table>
+
+    <!-- CANVA -->
+    <div class="category-title">🎨 CANVA PRO</div>
+    <table class="product-table">
+        <tr><td colspan="2" class="table-subheader">CANVA PRO MEMBER</td></tr>
+        <tr><td>1 bln / 3 bln / 6 bln / 1 thn (gar 10bln)</td><td class="price-col">Rp 3k / 5k / 9k / 14k</td></tr>
+        <tr><td colspan="2" class="table-subheader">CANVA PRO DESIGNER</td></tr>
+        <tr><td>1 bln / 3 bln / 6 bln / 1 thn (fullgar)</td><td class="price-col">Rp 4k / 6k / 10k / 19k</td></tr>
+    </table>
+
+    <!-- VIU -->
+    <div class="category-title">🔮 VIU PREMIUM</div>
+    <table class="product-table">
+        <tr><td>Viu 1 bln / 3 bln / 6 bln / 1 thn (Private)</td><td class="price-col">Rp 3k / 6k / 9k / 13k</td></tr>
+        <tr><td>Viu Plus 1 bln share / Private</td><td class="price-col">Rp 19k / 110k</td></tr>
+    </table>
+</div>
+
+<!-- KATEGORI: PRIME, TELEGRAM, BSTATION, DRAKOR, WATTPAD, MS365 -->
+<div class="category-block" id="others-cat">
+    <div class="category-title">📦 PRIME & APPS OTHERS</div>
+    <table class="product-table">
+        <tr><td colspan="2" class="table-subheader">PRIME VIDEO (All Device)</td></tr>
+        <tr><td>1 bln / 2 bln / 3 bln (Sharing)</td><td class="price-col">Rp 7k / 11k / 17k</td></tr>
+        <tr><td>1 bln / 2 bln / 3 bln (Private)</td><td class="price-col">Rp 19k / 35k / 50k</td></tr>
+        
+        <tr><td colspan="2" class="table-subheader">TELEGRAM & AI</td></tr>
+        <tr><td>Tele 1 bln / 1 thn (Login)</td><td class="price-col">Rp 95k / 520k</td></tr>
+        <tr><td>Gemini AI 1 thn (Acc Cust)</td><td class="price-col">Rp 65.000</td></tr>
+        <tr><td>Perplexity / Blackbox AI (1 bln)</td><td class="price-col">Rp 58.000</td></tr>
+        
+        <tr><td colspan="2" class="table-subheader">BSTATION & DRAKOR ID</td></tr>
+        <tr><td>Bstation 1 bln / 1 thn (Share)</td><td class="price-col">Rp 9k / 13k</td></tr>
+        <tr><td>Drakor ID 1 thn / MovieBox</td><td class="price-col">Rp 19k / 13k</td></tr>
+
+        <tr><td colspan="2" class="table-subheader">WATTPAD & ROBUX</td></tr>
+        <tr><td>Wattpad 1 bln Priv (Biasa/Paid)</td><td class="price-col">Rp 38k / 65k</td></tr>
+        <tr><td>80 Robux / 400 Robux</td><td class="price-col">Rp 33k / 120k</td></tr>
+    </table>
+
+    <div class="category-title">⚙️ OFFICE, DRIVE & TINDER</div>
+    <table class="product-table">
+        <tr><td>Ms365 1 bln / 12 bln / Lifetime</td><td class="price-col">Rp 10k / 75k / 160k</td></tr>
+        <tr><td>WPS 12 bln / G-Drive 1TB / 2TB</td><td class="price-col">Rp 45k / 120k / 85k</td></tr>
+        <tr><td>Tinder Gold 6 bln (Voucher)</td><td class="price-col">Rp 100.000</td></tr>
+    </table>
+</div>
+
+<!-- KATEGORI: MUSIC, EDITING, VPN, HBO, PICSART -->
+<div class="category-block" id="music-edit-cat">
+    <div class="category-title">🎵 MUSIC & EDITING</div>
+    <table class="product-table">
+        <tr><td colspan="2" class="table-subheader">MUSIC APPS</td></tr>
+        <tr><td>Apple Music 1 bln / 4 bln</td><td class="price-col">Rp 18k / 45k</td></tr>
+        <tr><td>Tidal / Deezer / iQOBUS (Fam)</td><td class="price-col">Rp 26.000</td></tr>
+        
+        <tr><td colspan="2" class="table-subheader">EDITING (Pro/1th/Lifetime)</td></tr>
+        <tr><td>Capcut 1 bln Share / 12 bln</td><td class="price-col">Rp 19k / 175k</td></tr>
+        <tr><td>VSCO / Lightroom / Photoroom</td><td class="price-col">Rp 19k - 23k</td></tr>
+        <tr><td>Adobe Fullpack Sharing</td><td class="price-col">Rp 150.000</td></tr>
+    </table>
+
+    <div class="category-title">🔒 VPN & HBO</div>
+    <table class="product-table">
+        <tr><td>HBO Max 1 bln Share / Private</td><td class="price-col">Rp 29k / 155k</td></tr>
+        <tr><td>Surfshark / Nord / Cyberghost</td><td class="price-col">Rp 30k - 65k</td></tr>
+        <tr><td>Unblock IMEI (3 bulan)</td><td class="price-col">Rp 500.000</td></tr>
+    </table>
+
+    <div class="category-title">✨ LIGHTROOM PRESET</div>
+    <table class="product-table">
+        <tr><td>1000+ / 3000+ / 5000+ Preset</td><td class="price-col">Rp 13k / 26k / 38k</td></tr>
+    </table>
+</div>
+
+
+</div>
+
+
+        </div>
+
+
+        <!-- AREA TOMBOL KONTAK FIXED DI BAWAH -->
+<div class="floating-button-container" style="display: flex; gap: 10px; padding: 10px;">
+    
+    <!-- Tombol Order -->
+    <a href="https://wa.me/6289502219144?text=Form%20Orderan%0A%E2%80%94%20nama%20apps%20%3A%20%0A%E2%80%94%20durasi%20%3A%20%0A%E2%80%94%20tgl%20order%20%3A%20" 
+       class="btn-wa" target="_blank" style="flex: 1; text-align: center;">
+        💬 Order
+    </a>
+
+    <!-- Tombol Join Grup -->
+    <a href="https://chat.whatsapp.com/IycyMksF8JM96EMNxIhgqM" 
+       class="btn-grup" target="_blank" 
+       style="flex: 1; text-align: center; background: #25D366; color: white; padding: 12px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 14px; box-shadow: 0 4px 0 #128C7E;">
+        📢 Join Grup
+    </a>
+
+</div>
+
+    </div>
+
+    <!-- SCRIPT JAVASCRIPT JANGAN DIUBAH -->
+    <script>
+        function toggleAccordion(id, btn) {
+            const content = document.getElementById(id);
+            btn.classList.toggle('active');
+            content.classList.toggle('open');
+        }
+
+        function copyText(id, message) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert(message);
+            });
+        }
+    </script>
+</body>
+</html>
